@@ -1,10 +1,12 @@
 import pytest, os, sys, tempfile, mock, json
 from flask import Flask
 
+sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
+
 @pytest.fixture
 def client():
     with mock.patch('flask.Flask', lambda x: Flask(x)):
-        from app import app
+        from app import app  
         db_fd, app.config['DATABASE'] = tempfile.mkstemp()
         app.config['TESTING'] = True
 
